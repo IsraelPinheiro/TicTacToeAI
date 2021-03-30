@@ -98,12 +98,45 @@ def play(game:TicTacToe, x_player:Player, o_player:Player, print_game:bool=True)
             else:
                 if o_player.player_type=="computer": time.sleep(0.8)
 
-
     if print_game:
         print("It's a tie!")
 
-if __name__ == '__main__':  
-    x_player = HumanPlayer("X")
-    o_player = AIComputerPlayer("O")
+def banner():
+    print(r"#======================================================#")
+    print(r"#   _____ _         _____             _____            #")
+    print(r"#  |_   _(_) ___   |_   _|_ _  ___   |_   _|__   ___   #")
+    print(r"#    | | | |/ __|____| |/ _` |/ __|____| |/ _ \ / _ \  #")
+    print(r"#    | | | | (_|_____| | (_| | (_|_____| | (_) |  __/  #")
+    print(r"#    |_| |_|\___|    |_|\__,_|\___|    |_|\___/ \___|  #")
+    print(r"#                                                      #")
+    print(r"#                        v1.0.0                        #")
+    print(r"#======================================================#")
+    print("")
+
+
+def select_player(symbol:str):
+    print("1 - Human Player")
+    print("2 - Computer Player (Random)")
+    print("3 - Computer Player (AI)")
+    option = input(f"Select the {symbol.upper()} Player: ")
+    if option=="1":
+        return HumanPlayer(symbol)
+    elif option=="2":
+        return RandomComputerPlayer(symbol)
+    elif option=="3":
+        return AIComputerPlayer(symbol)
+    else:
+        print("Invalid option!")
+        return select_player(symbol)
+
+if __name__ == '__main__':
+    #Print the game banner
+    banner()
+    #Select X Player
+    x_player = select_player("X")
+    #Select O Player
+    o_player = select_player("O")
+    #Create da game
     game = TicTacToe()
+    #Start the game
     play(game, x_player, o_player, print_game=True)
